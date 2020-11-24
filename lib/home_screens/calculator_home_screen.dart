@@ -43,7 +43,7 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
               SizedBox(
                 height: 20.0,
               ),
-              _buildResult(),
+              _buildInvoiceWidgets(),
               SizedBox(
                 height: 20.0,
               ),
@@ -51,7 +51,7 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
           ),
         ),
       )),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white30,
     );
   }
 
@@ -68,38 +68,15 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
               Container(
-                  height: 50,
-                  width: 50,
+                  height: 100,
+                  width: 100,
                   child: Image(image: AssetImage('images/dollars.png'))),
             ],
           ),
         ));
   }
 
-//  Widget _buildTipCalculatorPage() {
-//    return Stack(
-//      children: <Widget>[
-//        Container(
-//          color: Colors.grey,
-//          child: Center(
-//            child: SingleChildScrollView(
-//              child: Form(
-//                key: _formKey,
-//                child: Column(
-//                  mainAxisAlignment: MainAxisAlignment.center,
-//                  children: <Widget>[
-//
-//                  ],
-//                ),
-//              ),
-//            ),
-//          ),
-//        )
-//      ],
-//    );
-//  }
-
-  Widget _buildResult() {
+  Widget _buildInvoiceWidgets() {
     return Container(
       child: Row(
         children: <Widget>[
@@ -110,7 +87,7 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 elevation: 10.0,
-                color: Colors.black12,
+                color: Colors.grey,
                 padding: EdgeInsets.all(10.0),
                 onPressed: () {},
                 child: Column(
@@ -146,7 +123,7 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
             child: Container(
               margin: EdgeInsets.only(left: 10.0, right: 20.0),
               child: RaisedButton(
-                color: Colors.black12,
+                color: Colors.grey,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 elevation: 10.0,
@@ -188,18 +165,18 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
 
   Widget _buildCalculateButton() {
     return Container(
-      width: 150,
+      width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: 20.0, right: 10.0),
       child: RaisedButton(
-        color: Colors.black12,
+        color: Colors.grey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         elevation: 10.0,
         padding: EdgeInsets.all(10.0),
         onPressed: () {
-          //if (_formKey.currentState.validate()) {
-          _calculateTip();
-          people = 1;
-          // }
+          if (_formKey.currentState.validate()) {
+            _calculateTip();
+            people = 1;
+          }
         },
         child: Center(
           child: Text(
@@ -213,18 +190,19 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
 
   Widget _buildNumberOfPeoples() {
     return Container(
-      width: 220,
+      width: 250,
       margin: EdgeInsets.only(left: 20.0, right: 10.0),
       child: RaisedButton(
 //        color: lightText,
-        color: Colors.black12,
+        color: Colors.grey,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         elevation: 10.0,
         padding: EdgeInsets.all(10.0),
         onPressed: () {
-          //if (_formKey.currentState.validate()) {
-          _calculateTip();
-          // }
+          if (_formKey.currentState.validate()) {
+            _calculateTip();
+          }
+          print("what ?");
         },
         child: Column(
           children: <Widget>[
@@ -333,6 +311,12 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                 fillColor: Colors.white,
               ),
               keyboardType: TextInputType.number,
+              // ignore: missing_return
+              validator: (String billAmount) {
+                if (billAmount.isEmpty) {
+                  return "Tip amount is required";
+                }
+              },
             ),
           ),
           SizedBox(
@@ -357,6 +341,12 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                 fillColor: Colors.white,
               ),
               keyboardType: TextInputType.number,
+              // ignore: missing_return
+              validator: (String billTip) {
+                if (billTip.isEmpty) {
+                  return "Tip amount is required";
+                }
+              },
             ),
           ),
         ],
