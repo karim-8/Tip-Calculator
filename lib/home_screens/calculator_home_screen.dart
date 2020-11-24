@@ -55,8 +55,6 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
     );
   }
 
-  //_buildTipCalculatorPage
-
   Widget _pageHeaderView() {
     return Container(
         margin: EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
@@ -92,25 +90,14 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                 onPressed: () {},
                 child: Column(
                   children: <Widget>[
-                    people == 1 || isCalculatePressed == false
-                        ? Text(
-                            "Tip",
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          )
-                        : Text(
-                            "Tip per person",
-                            style: TextStyle(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
+                    Text(
+                      "Tip",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                     Text(
                       tipPerPerson.toString(),
                       style: TextStyle(
-                          fontSize: 22.0,
+                          fontSize: 25.0,
                           color: Colors.white,
                           fontWeight: FontWeight.w500),
                     ),
@@ -131,21 +118,10 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                 onPressed: () {},
                 child: Column(
                   children: <Widget>[
-                    people == 1 || isCalculatePressed == false
-                        ? Text(
-                            "Total",
-                            style: TextStyle(
-                                fontSize: 22.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          )
-                        : Text(
-                            "Total per person",
-                            style: TextStyle(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white),
-                          ),
+                    Text(
+                      "Total",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                     Text(
                       tipTotalPerPerson.toString(),
                       style: TextStyle(
