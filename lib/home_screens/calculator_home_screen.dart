@@ -15,8 +15,9 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
   double tipTotalPerPerson = 0;
   final _formKey = GlobalKey<FormState>();
   TextEditingController billTextEditingController = TextEditingController();
-  TextEditingController tipTextEditingController = TextEditingController();
-
+  TextEditingController tipTextEditingController =
+      TextEditingController(text: "15");
+//final controller = TextEditingController(text: "Your initial value");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +97,7 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                     ),
                     Text(
                       tipPerPerson.toString(),
+                      maxLines: 1,
                       style: TextStyle(
                           fontSize: 25.0,
                           color: Colors.white,
@@ -124,6 +126,7 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
                     ),
                     Text(
                       tipTotalPerPerson.toString(),
+                      maxLines: 1,
                       style: TextStyle(
                           fontSize: 25.0,
                           color: Colors.white,
