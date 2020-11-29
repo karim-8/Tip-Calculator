@@ -17,7 +17,6 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
   TextEditingController billTextEditingController = TextEditingController();
   TextEditingController tipTextEditingController =
       TextEditingController(text: "15");
-//final controller = TextEditingController(text: "Your initial value");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,94 +74,69 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
         ));
   }
 
-  Widget _buildInvoiceWidgets() {
+  Widget _buildTipBillAmount() {
     return Container(
+      margin: EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
       child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 20.0, right: 10.0),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                elevation: 10.0,
-                color: Colors.grey,
-                padding: EdgeInsets.all(10.0),
-                onPressed: () {},
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      "Tip",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    Text(
-                      tipPerPerson.toString(),
-                      maxLines: 1,
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+        children: [
+          Flexible(
+            child: TextFormField(
+              controller: billTextEditingController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
                 ),
+                hintText: "Bill Amount",
+                hintStyle: TextStyle(
+                  color: Colors.blueGrey,
+                ),
+                filled: true,
+                fillColor: Colors.white,
               ),
+              keyboardType: TextInputType.number,
+              // ignore: missing_return
+              validator: (String billAmount) {
+                if (billAmount.isEmpty) {
+                  return "Required";
+                }
+              },
             ),
           ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 10.0, right: 20.0),
-              child: RaisedButton(
-                color: Colors.grey,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                elevation: 10.0,
-                padding: EdgeInsets.all(10.0),
-                onPressed: () {},
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      "Total",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    Text(
-                      tipTotalPerPerson.toString(),
-                      maxLines: 1,
-                      style: TextStyle(
-                          fontSize: 25.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
+          SizedBox(
+            width: 5,
+          ),
+          Flexible(
+            child: TextFormField(
+              controller: tipTextEditingController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
+                  ),
                 ),
+                hintText: "Bill Tip (%)",
+                hintStyle: TextStyle(
+                  color: Colors.blueGrey,
+                ),
+                filled: true,
+                fillColor: Colors.white,
               ),
+              keyboardType: TextInputType.number,
+              // ignore: missing_return
+              validator: (String billTip) {
+                if (billTip.isEmpty) {
+                  return "Required";
+                }
+              },
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCalculateButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(left: 20.0, right: 10.0),
-      child: RaisedButton(
-        color: Colors.grey,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 10.0,
-        padding: EdgeInsets.all(10.0),
-        onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _calculateTip();
-            people = 1;
-          }
-        },
-        child: Center(
-          child: Text(
-            "Calculate",
-            style: TextStyle(color: Colors.white, fontSize: 22.0),
-          ),
-        ),
       ),
     );
   }
@@ -171,18 +145,8 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
     return Container(
       width: 250,
       margin: EdgeInsets.only(left: 20.0, right: 10.0),
-      child: RaisedButton(
-//        color: lightText,
+      child: Container(
         color: Colors.grey,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 10.0,
-        padding: EdgeInsets.all(10.0),
-        onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _calculateTip();
-          }
-          print("what ?");
-        },
         child: Column(
           children: <Widget>[
             Text(
@@ -266,66 +230,81 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
     );
   }
 
-  Widget _buildTipBillAmount() {
+  Widget _buildCalculateButton() {
     return Container(
-      margin: EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0),
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(left: 20.0, right: 10.0),
+      child: RaisedButton(
+        color: Colors.grey,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        elevation: 10.0,
+        padding: EdgeInsets.all(10.0),
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            _calculateTip();
+            people = 1;
+          }
+        },
+        child: Center(
+          child: Text(
+            "Calculate",
+            style: TextStyle(color: Colors.white, fontSize: 22.0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInvoiceWidgets() {
+    return Container(
       child: Row(
-        children: [
-          Flexible(
-            child: TextFormField(
-              controller: billTextEditingController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 20.0, right: 10.0),
+              child: Container(
+                color: Colors.grey,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Tip",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    Text(
+                      tipPerPerson.toString(),
+                      maxLines: 1,
+                      style: TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
                 ),
-                hintText: "Bill Amount",
-                hintStyle: TextStyle(
-                  color: Colors.blueGrey,
-                ),
-                filled: true,
-                fillColor: Colors.white,
               ),
-              keyboardType: TextInputType.number,
-              // ignore: missing_return
-              validator: (String billAmount) {
-                if (billAmount.isEmpty) {
-                  return "Tip amount is required";
-                }
-              },
             ),
           ),
-          SizedBox(
-            width: 5,
-          ),
-          Flexible(
-            child: TextFormField(
-              controller: tipTextEditingController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 10.0, right: 20.0),
+              child: Container(
+                color: Colors.grey,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "Total",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    Text(
+                      tipTotalPerPerson.toString(),
+                      maxLines: 1,
+                      style: TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
                 ),
-                hintText: "Bill Tip (%)",
-                hintStyle: TextStyle(
-                  color: Colors.blueGrey,
-                ),
-                filled: true,
-                fillColor: Colors.white,
               ),
-              keyboardType: TextInputType.number,
-              // ignore: missing_return
-              validator: (String billTip) {
-                if (billTip.isEmpty) {
-                  return "Tip amount is required";
-                }
-              },
             ),
           ),
         ],
@@ -336,19 +315,11 @@ class _TipCalculatorAppState extends State<TipCalculatorScreen> {
   void _calculateTip() {
     FocusScope.of(context).requestFocus(FocusNode());
 
-    if (people > 1) {
-      isCalculatePressed = true;
-    } else {
-      isCalculatePressed = false;
-    }
-
     tipPerPerson = (double.parse(billTextEditingController.text) /
         (int.parse(tipTextEditingController.text) * people));
-    print("tipPerPerson ${tipPerPerson}");
 
     tipTotalPerPerson =
         (double.parse(billTextEditingController.text) / people) + tipPerPerson;
-    print("tipTotalPerPerson ${tipTotalPerPerson}");
 
     billTextEditingController.clear();
     tipTextEditingController.clear();
